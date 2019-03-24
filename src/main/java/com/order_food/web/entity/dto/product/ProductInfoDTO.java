@@ -8,7 +8,7 @@ public class ProductInfoDTO {
     /**
      * 产品主键id
      */
-    private Long productId;
+    private Long id;
 
     /**
      * 产品名称
@@ -36,6 +36,11 @@ public class ProductInfoDTO {
     private String productGrade;
 
     /**
+     * 是否特价
+     */
+    private String recommend;
+
+    /**
      * 折扣 单位：百分之
      */
     private Integer dis;
@@ -50,12 +55,12 @@ public class ProductInfoDTO {
      */
     private Long disPrice;
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
-    public ProductInfoDTO setProductId(Long productId) {
-        this.productId = productId;
+    public ProductInfoDTO setId(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -128,6 +133,15 @@ public class ProductInfoDTO {
 
     public ProductInfoDTO setBannerProductImg(String bannerProductImg) {
         this.bannerProductImg = bannerProductImg;
+        return this;
+    }
+
+    public String getRecommend() {
+        return recommend;
+    }
+
+    public ProductInfoDTO setRecommend(String recommend) {
+        this.recommend = recommend;
         return this;
     }
 }

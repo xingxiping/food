@@ -1,23 +1,15 @@
 package com.order_food.web.dao;
 
 
-import com.github.pagehelper.Page;
-import com.order_food.web.entity.model.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 功能描述:dao层  ，数据库持久层类，(表USER)
+ *
  * @author yln
  * @version 1.0.0
  */
 @Mapper
-public interface UserDao  {
+public interface UserDao {
 
-	/**
-	 * 查询全部，条件查询
-	 *
-	 * @return
-	 */
-	Page<User> queryUserByPage();
-	
 }

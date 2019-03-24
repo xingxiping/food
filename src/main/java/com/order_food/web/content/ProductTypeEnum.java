@@ -1,6 +1,7 @@
 package com.order_food.web.content;
 
 import com.order_food.web.entity.dto.product.ProductTypeDTO;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,31 @@ public enum ProductTypeEnum {
 
     private String desc;
 
+
+    /**
+     * 根据code，查询枚举
+     *
+     * @param code
+     * @return
+     */
+    public static ProductTypeEnum getProductTypeByCode(String code) {
+        if (StringUtils.isEmpty(code)) {
+            return null;
+        }
+
+        for (ProductTypeEnum typeEnum : ProductTypeEnum.values()) {
+            if (typeEnum.getCode().equals(code)) {
+                return typeEnum;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 根据枚举，获取类型实体列表
+     *
+     * @return
+     */
     public static List<ProductTypeDTO> getProductTypeDTOs() {
         ProductTypeEnum[] productTypeEnums = ProductTypeEnum.values();
         List<ProductTypeDTO> productTypeDTOS = new ArrayList<>();

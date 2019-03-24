@@ -53,7 +53,9 @@
 
 
 <div class="content">
-    <div class="floors">
+
+    <!--今日推荐-->
+    <div class="floors" th:if="${not#lists.isEmpty(pageInners)}">
         <div class="sk">
             <div class="sk_inner w1200">
                 <div class="sk_hd">
@@ -65,7 +67,8 @@
                     <div class="layui-carousel" id="test1">
                         <div carousel-item>
                             <div class="item-box" th:each="inners,userStat: ${pageInners}">
-                                <div class="item" th:each="inner,userStat : ${inners}">
+                                <div class="item" th:each="inner,userStat : ${inners}"
+                                     th:onclick="'javascript:addToShopCart(' + ${inner.id} + ')'">
                                     <a href="javascript:;"><img th:src="@{${inner.productImg}}"/></a>
                                     <div class="title"><span th:text="${inner.productName}"/></div>
                                     <div class="price">
@@ -81,12 +84,14 @@
         </div>
     </div>
 
+    <!--商品列表-->
     <div class="product-list-box" id="product-list-box">
         <div class="main-nav">
             <div class="inner-cont0">
                 <div class="inner-cont1 w1200">
                     <div class="inner-cont2">
-                        <a th:each="productType,userStat: ${productTypes}" th:value="${productType.code}">
+                        <a th:each="productType,userStat: ${productTypes}" th:value="${productType.code}"
+                           th:onclick="'javascript:queryByCode(' + ${productType.code} + ')'">
                             <span th:text="${productType.desc}"/>
                         </a>
                     </div>
@@ -95,12 +100,18 @@
         </div>
 
         <div class="product-list-cont w1200">
-            <div class="product-item-box layui-clear">
+            <div class="product-item-box layui-clear" id="product">
                 <div th:each="product,userStat: ${products} " class="list-item">
-                    <a href="javascript:;" th:onclick="'javascript:showDefault(' + ${product.productId} + ')'"><img
+                    <a href="javascript:;" th:onclick="'javascript:addToShopCart(' + ${product.id} + ')'"><img
                             th:src="@{${product.productImg}}"/></a>
                     <p><span th:text="${product.productName}"/></p>
-                    <span th:text="${product.price}"></span>
+                    <div class="price" th:if="${product.recommend} eq '1'">
+                        <span>￥<span th:text="${product.disPrice}"/></span>
+                        <del>￥<span th:text="${product.price}"/></del>
+                    </div>
+                    <div class="price" th:if="${product.recommend} ne '1'">
+                        <span>￥<span th:text="${product.price}"/></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -163,22 +174,41 @@
 
     });
 
-    function showDefault(productId) {
-        console.log(productId);
-
+    //类型筛选
+    function queryByCode(code) {
+        console.log(code);
         $.ajax(
             {
-                url: "/query/product/info",
+                url: "/query/" + code + "/product",
                 async: false,
                 type: "POST",
-                data: {
-                    "productId": productId
-                },
                 success: function (result) {
-                    console.log(result);
+
+                    var html = "";
+                    $.each(result, function (index, item) {
+                        var div = "<div class=\"list-item\">" +
+                            " <a href=\"javascript:;\" onclick=\"javascript:addToShopCart(" + item.id + ")\">" +
+                            "<img src=\"" + item.productImg + "\"/></a>" + " <div class=\"price\">";
+
+                        if (item.recommend == '1') {
+                            div = div + "<span><span>￥" + item.disPrice + "</span></span><del><span>￥" + item.price + "</span></del>";
+                        } else {
+                            div = div + "<span><span>￥" + item.price + "</span></span>";
+                        }
+
+                        html = html + div + "</div></div>";
+
+                        console.log(html);
+                    });
+                    $("#product").html(html);
                 }
             }
         )
+    }
+
+    //添加到购物车
+    function addToShopCart(id) {
+        //TODO 加入购物车
     }
 </script>
 </body>
