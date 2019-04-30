@@ -176,14 +176,12 @@
 
     //类型筛选
     function queryByCode(code) {
-        console.log(code);
         $.ajax(
             {
                 url: "/query/" + code + "/product",
                 async: false,
                 type: "POST",
                 success: function (result) {
-
                     var html = "";
                     $.each(result, function (index, item) {
                         var div = "<div class=\"list-item\">" +
@@ -197,8 +195,6 @@
                         }
 
                         html = html + div + "</div></div>";
-
-                        console.log(html);
                     });
                     $("#product").html(html);
                 }

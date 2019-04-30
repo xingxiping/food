@@ -56,4 +56,14 @@ public class FoodProductService {
             return productInfoDao.queryProductsByType(productType.getCode());
         }
     }
+
+    /**
+     * 根据id，查询产品信息
+     *
+     * @param id
+     * @return
+     */
+    public ProductInfo queryProductInfoById(Long id) {
+        return productInfoDao.selectById(id);
+    }
 }
