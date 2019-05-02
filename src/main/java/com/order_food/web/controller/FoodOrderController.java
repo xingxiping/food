@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 订单信息操作
  * Created by xingxiping on 2019/5/2.
  */
-@Controller()
+@Controller
 public class FoodOrderController {
 
 //    private
