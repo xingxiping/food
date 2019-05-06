@@ -127,6 +127,45 @@ public class ShopCartController {
     }
 
     /**
+     * 添加/修改购物车信息
+     *
+     * @param param
+     * @return
+     */
+    @RequestMapping("/add/one/shopcart")
+    @ResponseBody
+    public GeneralResponseVO<Void> addOneShopCartProductInfo(@RequestBody AddShopCartProductInfoParam param) {
+        if (param == null) {
+            logger.warn("添加购物车，参数为空。param:{}", JSONObject.toJSONString(param));
+            return GeneralResponseEnum.PARAM_EXCEPTION.getFfGeneralResponseVO();
+        }
+
+        if (param.getNumber() == null || param.getNumber().compareTo(0) <= 0) {
+            logger.warn("购物车数量错误。param:{}", JSONObject.toJSONString(param));
+            return GeneralResponseEnum.PARAM_EXCEPTION.getFfGeneralResponseVO();
+        }
+
+        if (param.getUserId() == null || param.getUserId().compareTo(0L) <= 0) {
+            logger.warn("添加购物车，用户id错误。param:{}", JSONObject.toJSONString(param));
+            return GeneralResponseEnum.PARAM_EXCEPTION.getFfGeneralResponseVO();
+        }
+
+        if (param.getProductId() == null || param.getProductId().compareTo(0L) <= 0) {
+            logger.warn("添加购物车，产品ID错误。param:{}", JSONObject.toJSONString(param));
+            return GeneralResponseEnum.PARAM_EXCEPTION.getFfGeneralResponseVO();
+        }
+
+        ShopCartInfo shopCartInfo = shopCartInfoService.queryByProductIdAndUserId(param.getUserId(), param.getProductId());
+
+        if (shopCartInfo == null) {
+            shopCartInfoService.saveShopCartInfo(param.getUserId(), param.getProductId(), param.getNumber());
+        } else {
+            shopCartInfoService.updateShopCartNumInfoById(shopCartInfo.getId(), shopCartInfo.getNumber() + param.getNumber());
+        }
+        return GeneralResponseEnum.SUCCESS.getFfGeneralResponseVO();
+    }
+
+    /**
      * 根据购物车主键，删除购物车信息
      *
      * @param param

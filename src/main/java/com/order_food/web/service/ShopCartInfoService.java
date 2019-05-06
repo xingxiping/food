@@ -32,6 +32,22 @@ public class ShopCartInfoService {
     }
 
     /**
+     * 根据用户id和产品id查询
+     *
+     * @param userId    用户id
+     * @param productId 产品id
+     * @return
+     */
+    public ShopCartInfo queryByProductIdAndUserId(Long userId, Long productId) {
+        LambdaQueryWrapper<ShopCartInfo> wrapper = new LambdaQueryWrapper<ShopCartInfo>()
+                .eq(ShopCartInfo::getProductId, productId)
+                .eq(ShopCartInfo::getUserId, userId);
+
+        return shopCartInfoDao.selectOne(wrapper);
+
+    }
+
+    /**
      * 跟新购物车数量
      *
      * @param id     购物车id

@@ -30,6 +30,15 @@ public class FoodOrderController {
     @Autowired
     private OrderProductService orderProductService;
 
+    /**
+     * 查询我的订单列表
+     *
+     * @return
+     */
+    @RequestMapping("/orderInformation")
+    public String orderInformation(Model model, HttpServletRequest request, HttpServletResponse response) {
+        return "orderInformation";
+    }
 
     /**
      * 创建/生成订单
@@ -46,16 +55,6 @@ public class FoodOrderController {
             orderProductService.saveOrderProducts(foodOrder.getId(), ps.getProductId(), ps.getSize(), ps.getUnitPrice());
         });
         return GeneralResponseEnum.SUCCESS.getFfGeneralResponseVO();
-    }
-    /**
-     * 查询我的订单列表
-     *
-     * @return
-     */
-    @RequestMapping("/orderInformation")
-    public String orderInformation(Model model, HttpServletRequest request, HttpServletResponse response) {
-
-        return "orderInformation";
     }
 
 }

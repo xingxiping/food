@@ -46,10 +46,15 @@ public class FoodOrderService {
                 .setAddressId(addressId)
                 .setTotalAmount(totalAmount)
                 .setShippingTime(new Date(now.getTime() + 30 * 60 * 1000L))
-                .setStatus(FoodOrderStatusEnum.ORDER_STATUS_000.getStatus())
+                .setStatus(FoodOrderStatusEnum.ORDER_STATUS_100.getStatus())
                 .setUpdateTime(now)
                 .setCreateTime(now);
 
+        try {
+            Thread.sleep(1500L); //模拟支付过程，前端出现等待状态
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         foodOrderDao.insert(foodOrder);
         return foodOrder;
     }

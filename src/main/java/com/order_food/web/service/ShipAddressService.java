@@ -20,6 +20,16 @@ public class ShipAddressService {
     private ShipAddressDao shipAddressDao;
 
     /**
+     * 根据主键，查询地址信息
+     *
+     * @param id
+     * @return
+     */
+    public ShipAddress queryById(Long id) {
+        return shipAddressDao.selectById(id);
+    }
+
+    /**
      * 查询用户配送地址信息
      *
      * @param userId 用户id
@@ -32,10 +42,10 @@ public class ShipAddressService {
     /**
      * 保存用户配送地址信息
      *
-     * @param userId   用户id
-     * @param name     收货人姓名
-     * @param phone    收获人手机号
-     * @param address  详细地址
+     * @param userId  用户id
+     * @param name    收货人姓名
+     * @param phone   收获人手机号
+     * @param address 详细地址
      */
     public void saveShipAddress(Long userId, String name, String phone, String address) {
         Date now = new Date();

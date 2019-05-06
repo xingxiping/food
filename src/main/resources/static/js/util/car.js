@@ -47,6 +47,21 @@ layui.define(['layer'], function (exports) {
                 })
             }
 
+            //删除购物车信息
+            function delShopCartInfo(id) {
+                $.ajax({
+                    url: "/del/shopcart",
+                    data: '{"userId":' + userId + ', "id":' + id + '}',
+                    contentType: "application/json",
+                    dataType: "json",
+                    async: false,
+                    type: "POST",
+                    success: function (data) {
+                        layer.msg(data.errorMessage);
+                    }
+                })
+            }
+
             for (var i = 0; i < checkInputs.length; i++) {
                 checkInputs[i].onclick = function () {
                     if (this.className === 'check-all check') {
@@ -91,6 +106,9 @@ layui.define(['layer'], function (exports) {
                             layer.confirm('你确定要删除吗', {
                                 yes: function (index, layero) {
                                     layer.close(index);
+
+                                    delShopCartInfo(inputId.value);
+
                                     that.parentNode.removeChild(that);
                                 }
                             });
@@ -106,7 +124,9 @@ layui.define(['layer'], function (exports) {
                             layer.close(index)
                             for (var i = 0; i < uls.length; i++) {
                                 var input = uls[i].getElementsByTagName('input')[0];
+                                var inputId = this.getElementsByClassName('shopCartId')[0];
                                 if (input.checked) {
+                                    delShopCartInfo(inputId.value);
                                     uls[i].parentNode.removeChild(uls[i]);
                                     i--;
                                 }
