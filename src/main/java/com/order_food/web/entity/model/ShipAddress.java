@@ -30,20 +30,6 @@ public class ShipAddress {
      */
     private String phone;
 
-    /**
-     * 省
-     */
-    private String province;
-
-    /**
-     * 市
-     */
-    private String city;
-
-    /**
-     * 县
-     */
-    private String county;
 
     /**
      * 详细地址
@@ -98,33 +84,6 @@ public class ShipAddress {
 
     public ShipAddress setPhone(String phone) {
         this.phone = phone;
-        return this;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public ShipAddress setProvince(String province) {
-        this.province = province;
-        return this;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public ShipAddress setCity(String city) {
-        this.city = city;
-        return this;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public ShipAddress setCounty(String county) {
-        this.county = county;
         return this;
     }
 
