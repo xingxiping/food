@@ -35,20 +35,13 @@ public class ShipAddressService {
      * @param userId   用户id
      * @param name     收货人姓名
      * @param phone    收获人手机号
-     * @param province 省
-     * @param city     市
-     * @param county   县
      * @param address  详细地址
      */
-    public void saveShipAddress(Long userId, String name, String phone, String province, String city, String county, String address) {
+    public void saveShipAddress(Long userId, String name, String phone, String address) {
         Date now = new Date();
-
         ShipAddress shipAddress = new ShipAddress()
                 .setName(name)
                 .setPhone(phone)
-                .setProvince(province)
-                .setCity(city)
-                .setCounty(county)
                 .setAddress(address)
                 .setUpdate_time(now)
                 .setCreate_time(now);
@@ -82,9 +75,6 @@ public class ShipAddressService {
         }
         shipAddress.setName(name)
                 .setPhone(phone)
-                .setProvince(province)
-                .setCity(city)
-                .setCounty(county)
                 .setAddress(address)
                 .setUpdate_time(new Date());
 

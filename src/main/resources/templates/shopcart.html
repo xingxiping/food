@@ -25,7 +25,8 @@
         </p>
         <div class="sn-quick-menu">
             <div class="login"><a href="login">登录</a></div>
-            <div class="sp-cart"><a href="shopcart">购物车</a><span>2</span></div>
+            <div class="sp-cart"><a href="shopcart">购物车</a><span>&nbsp;&nbsp;&nbsp;</span></div>
+            <div class="sp-cart"><a href="address">我的</a></div>
         </div>
     </div>
 </div>
@@ -34,9 +35,9 @@
 <div class="header">
     <div class="headerLayout w1200">
         <div class="headerCon">
-            <h1 class="mallLogo">
-                <a href="#" title="母婴商城">
-                    <img src="..//img/logo.png">
+            <h1 class="mallLogo" style="margin-left: 0px;">
+                <a href="#" title="美食商城" >
+                    <img src="../img/logo.png">
                 </a>
             </h1>
             <div class="mallSearch">
@@ -59,14 +60,14 @@
         <div class="inner-cont0">
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
-                    <a href="about.html">关于我们</a>
+                    <a href="about">联系我们</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="banner-bg w1200">
-        <h3>夏季清仓</h3>
-        <p>宝宝被子、宝宝衣服3折起</p>
+        <h3>舌尖上的中国</h3>
+        <p>天天特价 天天惊喜</p>
     </div>
     <div class="cart w1200">
         <div class="cart-table-th">
@@ -125,7 +126,7 @@
                 <span class="batch-dele-btn">批量删除</span>
             </div>
             <div class="th Settlement">
-                <button class="layui-btn">结算</button>
+                <button class="layui-btn" id="submitButton" onclick="submit()">结算</button>
             </div>
             <div class="th total">
                 <p>应付：<span class="pieces-total">0</span></p>
@@ -165,6 +166,12 @@
                 if (code == '0000') {
                     var result = data.result;
                     var html = "";
+                   // alert(result.length);
+                   if(result != null && result.length>0){
+                        document.getElementById("submitButton").disabled=false;
+                    }else{
+                        document.getElementById("submitButton").disabled=true;
+                    }
                     $.each(result, function (index, item) {
 
                         var sum = item.price * item.number;
@@ -229,6 +236,47 @@
     }
 
 
+    //登陆
+    function submit() {
+        alert(1111);
+        /*var phone = $("#phone").val();
+        if ($.trim(phone).length == 0) {
+            layer.msg("请输入正确的手机号");
+            return;
+        }
+
+        if (!/^1[34578]\d{9}$/.test(phone)) {
+            layer.msg("请输入正确的手机号")
+            return;
+        }
+
+        var pnum = $("#pnum").val();
+        if ($.trim(pnum).length != 4) {
+            layer.msg("请输入正确的验证码")
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "../user/login",
+            data: '{"phone": "' + phone + '", "validCode": "' + pnum + '"}',
+            dataType: "json",
+            success: function (res) {
+                var code = res.code;
+                if (code == '0000') { //登陆成功
+                    var sessionStorage = window.sessionStorage;
+                    var userId = res.result.userId;
+                    sessionStorage["userId"] = userId;
+                    window.location.href = "../index";
+                } else { //登陆失败
+                    layer.msg(res.errorMessage);
+                }
+            }
+        })*/
+
+
+    }
 </script>
 </body>
 </html>
