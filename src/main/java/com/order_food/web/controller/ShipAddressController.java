@@ -35,7 +35,7 @@ public class ShipAddressController {
     @RequestMapping("/create")
     @ResponseBody
     public GeneralResponseVO<Void> createShipAddress(@RequestBody CreateShipAddressParam param) {
-        shipAddressService.saveShipAddress(param.getUserId(), param.getName(), param.getPhone(), param.getProvince(), param.getCity(), param.getCounty(), param.getAddress());
+        shipAddressService.saveShipAddress(param.getUserId(), param.getName(), param.getPhone(), param.getAddress());
         return GeneralResponseEnum.SUCCESS.getFfGeneralResponseVO();
     }
 
@@ -62,7 +62,7 @@ public class ShipAddressController {
     @RequestMapping("/update")
     @ResponseBody
     public GeneralResponseVO<Void> createShipAddress(@RequestBody UpdateShipAddressParam param) {
-        shipAddressService.saveShipAddress(param.getId(), param.getName(), param.getPhone(), param.getProvince(), param.getCity(), param.getCounty(), param.getAddress());
+        shipAddressService.saveShipAddress(param.getId(), param.getName(), param.getPhone(), param.getAddress());
         return GeneralResponseEnum.SUCCESS.getFfGeneralResponseVO();
     }
 

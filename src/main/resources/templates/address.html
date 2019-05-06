@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/site.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
+
+    <script th:src="@{/jquery-1.12.4.min.js}" type="text/javascript"></script>
+    <script th:src="@{/ jquery.pagination.js}" type="text/javascript"></script>
+
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <style type="text/css">
+        .form-horizontal .form-group {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .has-feedback {
+            position: relative;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .hidden {
+            display: none!important;
+        }
+        p {
+            margin: 0 0 10px;
+        }
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+    </style>
+
+
+
+</head>
+<body id="list-cont">
+<div class="site-nav-bg">
+    <div class="site-nav w1200">
+        <p class="sn-back-home">
+            <i class="layui-icon layui-icon-home"></i>
+            <a href="index">首页</a>
+        </p>
+        <div class="sn-quick-menu">
+            <div class="login"><a href="login">登录</a></div>
+            <div class="sp-cart"><a href="shopcart">购物车</a><span>&nbsp;&nbsp;&nbsp;</span></div>
+            <div class="sp-cart"><a href="address">我的</a></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="header">
+    <div class="headerLayout w1200">
+        <div class="headerCon">
+            <h1 class="mallLogo" style="margin-left: -60px;">
+                <a href="#" title="美食点餐">
+                    <img th:src="@{/img/logo.png}"/>
+                </a>
+            </h1>
+            <div class="mallSearch">
+                <form action="" class="layui-form" novalidate>
+                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                           class="layui-input" placeholder="请输入需要的美食">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">
+                        <i class="layui-icon layui-icon-search"></i>
+                    </button>
+                    <input type="hidden" name="" value="">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content content-nav-base shopcart-content">
+   <div class="main-nav">
+        <div class="inner-cont0">
+            <div class="inner-cont1 w1200">
+                <div class="inner-cont2">
+                    <a href="about">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner-bg w1200">
+        <h3>舌尖上的中国</h3>
+        <p>天天特价 天天惊喜</p>
+    </div>
+    <div class="cart w1200">
+        <div class="row">
+            <div class="col-md-2 hidden-xs" >
+                <div class="my-avatar center-block p_bottom_10">
+							<span class="avatar">
+							      <img alt="..." src="../img/touxiang1.jpg" style="   position: absolute;left: 38%;top: -8%;">
+
+							</span>
+                </div>
+                <h5 class="text-center p_bottom_10">&nbsp;&nbsp;您好！</h5>
+                <ul class="list-group">
+                    <li class="list-group-item active"><a href="address">我的地址</a></li>
+                    <li><a class="list-group-item" href="orderInformation">我的订单</a></li>
+                </ul>
+            </div>
+            <div class="col-md-10 b-left" >
+
+                <div class="m_top_10">
+                    <a class="btn btn-primary btn-sm" href="addressSave" data-pagetype="0" data-toggle="modal" data-target="#myModal">+ 新增地址</a>
+                </div>
+                <table class="table table-bordered table-hover m_top_10">
+                    <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>手机</th>
+                        <th>详细地址</th>
+                        <th>公司名称</th>
+                        <th width="170">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>yu</td>
+                        <td>
+
+
+                            185****1008
+
+                        </td>
+                        <td>北京 北京市 东城区<br> 达美中心311</td>
+                        <td>111</td>
+
+
+                        <td><a class="btn btn-primary btn-sm"  href="/user/addressSave.htm?userAddressId=5601692&amp;&amp;userId=103425946&amp;type=0&amp;total=1&amp;limit=10&amp;sort=userAddressId&amp;dir=asc&amp;currentPage=0" data-toggle="modal" data-target="#myModal">修改</a>
+                            <a class="btn btn-primary btn-sm" href="/user/addressDelete.htm?userAddressId=5601692" data-toggle="modal" data-target="#deladdress" data-remote="false">删除</a>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel" style="position: absolute">新增地址</h4>
+            </div>
+            <div class="modal-body">
+               <!-- <form action="../shipAddress/create" method="post" class="form-horizontal fv-form fv-form-bootstrap" id="form" novalidate="novalidate">-->
+                    <button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
+                    <input type="hidden" name="cSRFToken" value="0ad380b0-4179-440f-95de-53c8552d8423">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p title="错误信息" class="alert alert-danger hidden m_bottom_0" role="alert" id="error"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group has-feedback">
+                        <label class="col-md-4 control-label" style="text-align: right">姓名</label>
+                        <div class="col-md-6">
+                            <input name="name" id="name" maxlength="15" value="" class="form-control" placeholder="请输入姓名" data-fv-field="name"></div>
+                    </div>
+                    <div class="row form-group has-feedback">
+                        <label class="col-md-4 control-label" style="text-align: right">联系电话</label>
+                        <div class="col-md-6">
+                            <input id="phone" name="phone" maxlenght="11" value="" class="form-control" placeholder="联系电话必填项" data-fv-field="phone"></div>
+                    </div>
+                    <div class="row form-group has-feedback">
+                        <label class="col-sm-4 control-label" style="text-align: right">详细地址</label>
+                        <div class="col-sm-6">
+                            <input  id="address" name="address" maxlength="30" value="" class="form-control" placeholder="请输入详细地址" data-fv-field="address"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <input name="userAddressId" value="" type="hidden">
+                            <input type="button" value="新增" class="btn btn-primary btn-block" onclick="create()">
+                        </div>
+                    </div>
+                <!--</form>-->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+        <script type="text/javascript">
+            var storage = window.sessionStorage;
+            var userId = storage.userId;
+
+            if (!userId) { //用户未登录，跳转登陆页面
+                window.location.href = "../login";
+            }
+            function create(){
+                var name = $("#name").val();
+                var phone = $("#phone").val();
+                var address = $("#address").val();
+                var arg1 =/^([A-Za-z]|[\u4E00-\u9FA5])+$/;
+                if(name ==""){
+                    alert('请输入您的姓名');
+                    return false;
+                }
+                if(name.match(arg1) == null ){
+                    alert("请填写15字符之内、中文或英文");
+                    return false;
+                }
+                var arg2 =/^.{5,30}$/;
+                if(phone ==""){
+                    alert('请输入地址');
+                    return false;
+                }
+                if(phone.match(arg2) == null ){
+                    alert("地址长度在5-30之间");
+                    return false;
+                }
+                var arg3 =/^((0\d{2,3}-\d{7,8})|(1[3456789]\d{9})|(400\-\d{7}))$/;
+                if(address ==""){
+                    alert('请输入手机或电话号码');
+                    return false;
+                }
+                if(address.match(arg3) == null ){
+                    alert("请输入正确的手机或电话号码");
+                    return false;
+                }
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "../shipAddress/create",
+                    data: '{"phone": "' + phone + '", "name": "' + name + '","address": "' + address + '"}',
+                    dataType: "json",
+                    success: function (res) {
+                        var code = res.code;
+                        if (code == '0000') { //登陆成功
+                            var sessionStorage = window.sessionStorage;
+                            var userId = res.result.userId;
+                            sessionStorage["userId"] = userId;
+                            window.location.href = "../index";
+                        } else { //登陆失败
+                            layer.msg(res.errorMessage);
+                        }
+                    }
+                })
+
+            }
+            $(function() {
+                'use strict';
+                setTimeout(function(){
+                    $("#error:parent").removeClass("hidden");
+                },200);
+                var ifok = false;
+
+
+                $('#deladdress').on('show.bs.modal', function (e) {
+                    var button = $(e.relatedTarget);
+                    var a_href = button.attr("href");
+                    var username = button.data("username");
+                    var modal = $(this).find(".modal-body");
+                    var post_btn = $(this).find(".btn-primary");
+                    post_btn.show();
+                    modal.html("<p>删除这条地址，你确定要这么做吗？");
+                    post_btn.off().on("click",function(event){
+                        event.preventDefault();
+                        $.ajax({
+                            url: a_href ,
+                            type: "post",
+                            dataType:"json",
+                            success: function(data){
+                                if(data.success){
+                                    post_btn.hide();
+                                    var message = '<div class="yto-message success"><div class="icon-an" > <span class="line tip"></span> <span class="line long"></span> <div class="placeholder"></div><div class="fix"></div> </div><h3 class="yto-message-title">操作成功</h3></div>';
+                                    modal.html(message);
+                                    ifok = true;
+                                }	else{
+                                    alert(data.message);
+                                    modal.html(""+data.message+"");
+                                }
+
+                            },
+                            error:function(){
+                                modal.html("请求服务器发生错误！");
+                            }
+
+                        });
+
+                    });
+                }).on("hidden.bs.modal", function() {
+                    $(this).removeData("bs.modal");
+                    if(ifok){
+                        window.location.reload();
+                    }
+                });
+
+            });
+        </script>
+
+
+</body>
+</html>
