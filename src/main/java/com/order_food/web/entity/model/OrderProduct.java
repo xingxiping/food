@@ -17,6 +17,16 @@ public class OrderProduct {
      * 商品id
      */
     @TableId(type = IdType.AUTO)
+    private Long id;
+
+    /**
+     * 订单id
+     */
+    private Long orderId;
+
+    /**
+     * 商品id
+     */
     private Long productId;
 
     /**
@@ -38,6 +48,24 @@ public class OrderProduct {
      * 创建时间
      */
     private Date createTime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public OrderProduct setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public OrderProduct setOrderId(Long orderId) {
+        this.orderId = orderId;
+        return this;
+    }
 
     public Long getProductId() {
         return productId;
