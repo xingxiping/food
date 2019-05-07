@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public interface ShipAddressDao extends BaseMapper<ShipAddress> {
 
-    @Select("select * from ship_address where user_id = #{userId} order by is_default, update_time")
+    @Select("select * from ship_address where user_id = #{userId} order by is_default asc, update_time desc")
     List<ShipAddress> queryByUserId(@Param("userId") Long userId);
 
 }

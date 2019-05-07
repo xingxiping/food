@@ -93,4 +93,15 @@ public class ShopCartInfoService {
         queryWrapper.eq(ShopCartInfo::getUserId, userId);
         shopCartInfoDao.delete(queryWrapper);
     }
+    /**
+     * 根据id，删除购物车
+     *
+     * @param userId 用户主键id
+
+     */
+    public void delShopCartInfoByUserId(Long userId) {
+        LambdaQueryWrapper<ShopCartInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ShopCartInfo::getUserId, userId);
+        shopCartInfoDao.delete(queryWrapper);
+    }
 }

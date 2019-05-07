@@ -16,6 +16,7 @@ public enum GeneralResponseEnum {
     PARAM_EXCEPTION("0005", "参数异常", "参数异常"),
     PASSWD_FAILED("0006", "用户名密码错误", "用户名密码错误"),
     DATA_EMPTY("0007", "没有获取到数据", "没有获取到数据"),
+    DATA_EMPTYADDRESS("0009", "没有获取到地址", "没有获取到地址"),
     NOT_LOGGED_IN("0008", "用户未登录", "用户未登录"),
     IP_NOT_WHITELIST("00016", "IP不在白名单", "IP不在白名单"),
     SYSTEM_EXCEPTION("9999", "请稍后重试", "系统异常");

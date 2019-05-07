@@ -77,19 +77,19 @@
     <div class="headerLayout w1200">
         <div class="headerCon">
             <h1 class="mallLogo" style="margin-left: -60px;">
-                <a href="#" title="美食点餐">
+                <a href="index" title="美食点餐">
                     <img th:src="@{/img/logo.png}"/>
                 </a>
             </h1>
             <div class="mallSearch">
-                <form action="" class="layui-form" novalidate>
+                <!--<form action="" class="layui-form" novalidate>
                     <input type="text" name="title" required lay-verify="required" autocomplete="off"
                            class="layui-input" placeholder="请输入需要的美食">
                     <button class="layui-btn" lay-submit lay-filter="formDemo">
                         <i class="layui-icon layui-icon-search"></i>
                     </button>
                     <input type="hidden" name="" value="">
-                </form>
+                </form>-->
             </div>
         </div>
     </div>
@@ -100,6 +100,8 @@
         <div class="inner-cont0">
             <div class="inner-cont1 w1200">
                 <div class="inner-cont2">
+                    <a href="shopcart">购物车</a><span>&nbsp;&nbsp;&nbsp;</span>
+                    <a href="address">我的详情</a>
                     <a href="about">联系我们</a>
                 </div>
             </div>
@@ -137,20 +139,8 @@
                         <th>订单金额</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>yu</td>
-                        <td>
+                    <tbody class="tbody-class">
 
-
-                            185****1008
-
-                        </td>
-                        <td>北京 北京市 东城区<br> 达美中心311</td>
-                        <td>111</td>
-                        <td>222</td>
-
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -170,7 +160,42 @@
         window.location.href = "../login";
     };
 
+    $(function(){
+        //加载购物车数据
+        $.ajax(
+            {
+                url: "../orderList",
+                data: '{"userId":' + userId + '}',
+                contentType: "application/json",
+                dataType: "json",
+                async: false,
+                type: "POST",
+                success: function (data) {
 
+                    var result = data.result;
+                    console.log(result);
+                    var html = "";
+                    if(result != null && result.length>0){
+                        $.each(result, function (index, item) {
+                            var ul = "<tr>\n" +
+                                "<td>"+ item.name+"</td>\n" +
+                                "<td>"+item.phone+"</td>\n" +
+                                "<td>"+item.address+"</td>\n" +
+                                "<td>"+item.createTime+"</td>\n" +
+                                "<td>"+item.totleAmount+"</td>\n" +
+                                "</tr>"
+
+                            // console.log(ul);
+                            html = html + ul;
+                        });
+                        $(".tbody-class").html(html);
+                    }
+
+                }
+            }
+        )
+
+    })
 
 </script>
 

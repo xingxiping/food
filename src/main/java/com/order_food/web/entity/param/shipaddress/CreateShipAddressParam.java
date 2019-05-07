@@ -28,6 +28,8 @@ public class CreateShipAddressParam {
      */
     private String address;
 
+    private String isDefault;
+
     public Long getUserId() {
         return userId;
     }
@@ -61,6 +63,15 @@ public class CreateShipAddressParam {
 
     public CreateShipAddressParam setAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public String getIsDefault() {
+        return isDefault;
+    }
+
+    public CreateShipAddressParam setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
         return this;
     }
 }

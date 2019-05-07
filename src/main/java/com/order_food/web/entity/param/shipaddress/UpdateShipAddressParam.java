@@ -22,25 +22,15 @@ public class UpdateShipAddressParam {
      */
     private String phone;
 
-    /**
-     * 省
-     */
-    private String province;
-
-    /**
-     * 市
-     */
-    private String city;
-
-    /**
-     * 县
-     */
-    private String county;
 
     /**
      * 详细地址
      */
     private String address;
+
+    private String isDefault;
+
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -69,39 +59,30 @@ public class UpdateShipAddressParam {
         return this;
     }
 
-    public String getProvince() {
-        return province;
-    }
-
-    public UpdateShipAddressParam setProvince(String province) {
-        this.province = province;
-        return this;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public UpdateShipAddressParam setCity(String city) {
-        this.city = city;
-        return this;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public UpdateShipAddressParam setCounty(String county) {
-        this.county = county;
-        return this;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public UpdateShipAddressParam setAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public String getIsDefault() {
+        return isDefault;
+    }
+
+    public UpdateShipAddressParam setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
+        return this;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public UpdateShipAddressParam setUserId(Long userId) {
+        this.userId = userId;
         return this;
     }
 }

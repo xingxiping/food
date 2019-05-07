@@ -57,9 +57,11 @@ public class ShipAddressController {
         shipAddressInfos.forEach(sci -> {
 
             ShipAddressInfoDTO dto = new ShipAddressInfoDTO()
+                    .setId(sci.getId())
                     .setUserId(sci.getUser_id())
                     .setName(sci.getName())
                     .setPhone(sci.getPhone())
+                    .setIsDefault(sci.getIsDefault())
                     .setAddress(sci.getAddress());
 
             dtos.add(dto);
@@ -76,7 +78,14 @@ public class ShipAddressController {
     @RequestMapping("/create")
     @ResponseBody
     public GeneralResponseVO<Void> createShipAddress(@RequestBody CreateShipAddressParam param) {
-        shipAddressService.saveShipAddress(param.getUserId(), param.getName(), param.getPhone(), param.getAddress());
+        if(param.getIsDefault().equals("0") ){
+            List<ShipAddress> shipAddressInfos = shipAddressService.queryShipAddressesByisdefault(param.getUserId(),"0");
+            shipAddressInfos.forEach(sci -> {
+                sci.setIsDefault("1");
+                shipAddressService.updateShipAddress(sci.getId(),sci.getName(),sci.getPhone(),sci.getAddress(),sci.getIsDefault());
+            });
+        }
+        shipAddressService.saveShipAddress(param.getUserId(), param.getName(), param.getPhone(), param.getAddress(),param.getIsDefault());
         return GeneralResponseEnum.SUCCESS.getFfGeneralResponseVO();
     }
 
@@ -88,8 +97,8 @@ public class ShipAddressController {
      */
     @RequestMapping("/delete")
     @ResponseBody
-    public GeneralResponseVO<Void> createShipAddress(@RequestBody List<Long> param) {
-        shipAddressService.deleteShipAddress(param);
+    public GeneralResponseVO<Void> deleteShipAddress(@RequestBody String param) {
+        shipAddressService.deleteShipAddress(Long.getLong(param));
         return GeneralResponseEnum.SUCCESS.getFfGeneralResponseVO();
     }
 
@@ -102,8 +111,15 @@ public class ShipAddressController {
      */
     @RequestMapping("/update")
     @ResponseBody
-    public GeneralResponseVO<Void> createShipAddress(@RequestBody UpdateShipAddressParam param) {
-        shipAddressService.saveShipAddress(param.getId(), param.getName(), param.getPhone(), param.getAddress());
+    public GeneralResponseVO<Void> updateShipAddress(@RequestBody UpdateShipAddressParam param) {
+        if(param.getIsDefault().equals("0") ){
+            List<ShipAddress> shipAddressInfos = shipAddressService.queryShipAddressesByisdefault(param.getUserId(),"0");
+            shipAddressInfos.forEach(sci -> {
+                sci.setIsDefault("1");
+                shipAddressService.updateShipAddress(sci.getId(),sci.getName(),sci.getPhone(),sci.getAddress(),sci.getIsDefault());
+            });
+        }
+        shipAddressService.updateShipAddress(param.getId(), param.getName(), param.getPhone(), param.getAddress(),param.getIsDefault());
         return GeneralResponseEnum.SUCCESS.getFfGeneralResponseVO();
     }
 

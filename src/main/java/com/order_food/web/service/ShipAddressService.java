@@ -1,7 +1,9 @@
 package com.order_food.web.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.order_food.web.dao.ShipAddressDao;
 import com.order_food.web.entity.model.ShipAddress;
+import com.order_food.web.entity.model.ShopCartInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +40,18 @@ public class ShipAddressService {
     public List<ShipAddress> queryUserShipAddresses(Long userId) {
         return shipAddressDao.queryByUserId(userId);
     }
-
+    /**
+     * 查询用户配送地址信息
+     *
+     * @param isdefault
+     * @return
+     */
+    public List<ShipAddress> queryShipAddressesByisdefault(Long userId , String isdefault) {
+        LambdaQueryWrapper<ShipAddress> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ShipAddress::getIsDefault, isdefault);
+        queryWrapper.eq(ShipAddress::getUser_id, userId);
+        return shipAddressDao.selectList(queryWrapper);
+    }
     /**
      * 保存用户配送地址信息
      *
@@ -47,13 +60,14 @@ public class ShipAddressService {
      * @param phone   收获人手机号
      * @param address 详细地址
      */
-    public void saveShipAddress(Long userId, String name, String phone, String address) {
+    public void saveShipAddress(Long userId, String name, String phone, String address,String isDefault) {
         Date now = new Date();
         ShipAddress shipAddress = new ShipAddress()
                 .setUser_id(userId)
                 .setName(name)
                 .setPhone(phone)
                 .setAddress(address)
+                .setIsDefault(isDefault)
                 .setUpdate_time(now)
                 .setCreate_time(now);
         shipAddressDao.insert(shipAddress);
@@ -64,8 +78,8 @@ public class ShipAddressService {
      *
      * @param ids
      */
-    public void deleteShipAddress(List<Long> ids) {
-        shipAddressDao.deleteBatchIds(ids);
+    public void deleteShipAddress(Long ids) {
+        shipAddressDao.deleteById(ids);
     }
 
     /**
@@ -74,12 +88,9 @@ public class ShipAddressService {
      * @param id       配送地址id
      * @param name     收货人姓名
      * @param phone    收获人手机号
-     * @param province 省
-     * @param city     市
-     * @param county   县
      * @param address  详细地址
      */
-    public void updateShipAddress(Long id, String name, String phone, String province, String city, String county, String address) {
+    public void updateShipAddress(Long id, String name, String phone,  String address, String isDefault) {
         ShipAddress shipAddress = shipAddressDao.selectById(id);
         if (shipAddress == null) {
             return;
@@ -87,6 +98,7 @@ public class ShipAddressService {
         shipAddress.setName(name)
                 .setPhone(phone)
                 .setAddress(address)
+                .setIsDefault(isDefault)
                 .setUpdate_time(new Date());
 
         shipAddressDao.updateById(shipAddress);

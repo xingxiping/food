@@ -1,6 +1,8 @@
 package com.order_food.web.entity.dto.shipAddress;
 
 public class ShipAddressInfoDTO {
+
+    private Long id;
     /**
      * 用户id
      */
@@ -22,12 +24,19 @@ public class ShipAddressInfoDTO {
      */
     private String address;
 
+    private String isDefault;
+
+
     public Long getUserId() {
         return userId;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getPhone() {
@@ -55,6 +64,20 @@ public class ShipAddressInfoDTO {
 
     public ShipAddressInfoDTO setAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public ShipAddressInfoDTO setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getIsDefault() {
+        return isDefault;
+    }
+
+    public ShipAddressInfoDTO setIsDefault(String isDefault) {
+        this.isDefault = isDefault;
         return this;
     }
 }

@@ -41,4 +41,9 @@ public class UserService {
         userDao.insert(user);
         return user;
     }
+
+    public User queryUserById(Long userId) {
+
+        return userDao.selectById(userId);
+    }
 }
