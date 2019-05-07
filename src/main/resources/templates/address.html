@@ -135,26 +135,20 @@
                         <th>姓名</th>
                         <th>手机</th>
                         <th>详细地址</th>
-                        <th>公司名称</th>
                         <th width="170">操作</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="tbody-class">
                     <tr>
                         <td>yu</td>
                         <td>
-
-
                             185****1008
-
                         </td>
                         <td>北京 北京市 东城区<br> 达美中心311</td>
-                        <td>111</td>
-
-
                         <td><a class="btn btn-primary btn-sm"  href="/user/addressSave.htm?userAddressId=5601692&amp;&amp;userId=103425946&amp;type=0&amp;total=1&amp;limit=10&amp;sort=userAddressId&amp;dir=asc&amp;currentPage=0" data-toggle="modal" data-target="#myModal">修改</a>
                             <a class="btn btn-primary btn-sm" href="/user/addressDelete.htm?userAddressId=5601692" data-toggle="modal" data-target="#deladdress" data-remote="false">删除</a>
-                        </td></tr>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -197,8 +191,8 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-sm-12">
-                            <input name="userAddressId" value="" type="hidden">
-                            <input type="button" value="新增" class="btn btn-primary btn-block" onclick="create()">
+                            <input name="id" value="" type="hidden">
+                            <input type="button" value="保存" class="btn btn-primary btn-block" onclick="create()">
                         </div>
                     </div>
                 <!--</form>-->
@@ -213,7 +207,6 @@
         <script type="text/javascript">
             var storage = window.sessionStorage;
             var userId = storage.userId;
-
             if (!userId) { //用户未登录，跳转登陆页面
                 window.location.href = "../login";
             }
@@ -227,54 +220,94 @@
                     return false;
                 }
                 if(name.match(arg1) == null ){
-                    alert("请填写15字符之内、中文或英文");
+                    alert("姓名：请填写15字符之内、中文或英文");
                     return false;
                 }
-                var arg2 =/^.{5,30}$/;
+                var arg2 =/^((0\d{2,3}-\d{7,8})|(1[3456789]\d{9})|(400\-\d{7}))$/;
+                var arg4 = /^1(3|4|5|7|8)\d{9}$/;
                 if(phone ==""){
-                    alert('请输入地址');
-                    return false;
-                }
-                if(phone.match(arg2) == null ){
-                    alert("地址长度在5-30之间");
-                    return false;
-                }
-                var arg3 =/^((0\d{2,3}-\d{7,8})|(1[3456789]\d{9})|(400\-\d{7}))$/;
-                if(address ==""){
                     alert('请输入手机或电话号码');
                     return false;
                 }
-                if(address.match(arg3) == null ){
+                if(phone.match(arg2) == null || phone.match(arg4) == null ){
                     alert("请输入正确的手机或电话号码");
+                    return false;
+                }
+                var arg3 =/^.{5,30}$/;
+                if(address ==""){
+                    alert('请输入地址');
+                    return false;
+                }
+                if(address.match(arg3) == null ){
+                    alert("地址长度在5-30之间");
                     return false;
                 }
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
                     url: "../shipAddress/create",
-                    data: '{"phone": "' + phone + '", "name": "' + name + '","address": "' + address + '"}',
+                    data: '{"userId": "' + userId + '", "phone": "' + phone + '", "name": "' + name + '","address": "' + address + '"}',
                     dataType: "json",
                     success: function (res) {
-                        var code = res.code;
-                        if (code == '0000') { //登陆成功
+                        console.log(res);
+                        var message = res.message;
+                        if(message == "响应成功"){
+                            window.location.href = "../address";
+                            alert("添加成功");
+                        }else{
+                            window.location.href = "../address";
+                            alert("添加失败");
+                        }
+                        //var code = res.code;
+                        /*if (code == '0000') { //登陆成功
                             var sessionStorage = window.sessionStorage;
                             var userId = res.result.userId;
                             sessionStorage["userId"] = userId;
                             window.location.href = "../index";
                         } else { //登陆失败
                             layer.msg(res.errorMessage);
-                        }
+                        }*/
                     }
                 })
 
             }
-            $(function() {
-                'use strict';
-                setTimeout(function(){
-                    $("#error:parent").removeClass("hidden");
-                },200);
-                var ifok = false;
+            $(function(){
+                alert(1212);
+                //加载购物车数据
+                $.ajax(
+                    {
+                        url: "../shipAddress/queryAllAddress",
+                        data: '{"userId":' + userId + '}',
+                        contentType: "application/json",
+                        dataType: "json",
+                        async: false,
+                        type: "POST",
+                        success: function (data) {
 
+                            var result = data.result;
+                            console.log(result);
+                            var html = "";
+                            if(result != null && result.length>0){
+                                $.each(result, function (index, item) {
+                                    var ul = "<tr>\n" +
+                                        "<td>"+ item.name+"</td>\n" +
+                                        "<td>"+item.phone+"</td>\n" +
+                                        "<td>"+item.address+"</td>\n" +
+                                        "<td><a class=\"btn btn-primary btn-sm\"  onclick=\"update()\" data-toggle=\"modal\" data-target=\"#myModal\">修改</a>" +
+                                        " <a class=\"btn btn-primary btn-sm\"  data-toggle=\"modal\" data-target=\"#deladdress\" data-remote=\"false\">删除</a></td>\n</tr>"
+
+                                    console.log(ul);
+                                    html = html + ul;
+                                });
+                                $(".tbody-class").html(html);
+                            }
+
+                        }
+                    }
+                )
+
+            })
+            $(function() {
 
                 $('#deladdress').on('show.bs.modal', function (e) {
                     var button = $(e.relatedTarget);

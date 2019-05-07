@@ -50,6 +50,7 @@ public class ShipAddressService {
     public void saveShipAddress(Long userId, String name, String phone, String address) {
         Date now = new Date();
         ShipAddress shipAddress = new ShipAddress()
+                .setUser_id(userId)
                 .setName(name)
                 .setPhone(phone)
                 .setAddress(address)

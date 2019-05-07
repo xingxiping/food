@@ -22,20 +22,6 @@ public class CreateShipAddressParam {
      */
     private String phone;
 
-    /**
-     * 省
-     */
-    private String province;
-
-    /**
-     * 市
-     */
-    private String city;
-
-    /**
-     * 县
-     */
-    private String county;
 
     /**
      * 详细地址
@@ -66,33 +52,6 @@ public class CreateShipAddressParam {
 
     public CreateShipAddressParam setPhone(String phone) {
         this.phone = phone;
-        return this;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public CreateShipAddressParam setProvince(String province) {
-        this.province = province;
-        return this;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public CreateShipAddressParam setCity(String city) {
-        this.city = city;
-        return this;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public CreateShipAddressParam setCounty(String county) {
-        this.county = county;
         return this;
     }
 
