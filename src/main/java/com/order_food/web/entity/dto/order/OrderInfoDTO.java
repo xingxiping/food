@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class OrderInfoDTO {
@@ -52,6 +53,24 @@ public class OrderInfoDTO {
      * 创建时间
      */
     private Date createTime;
+
+    /**
+     * 创建时间-字符串
+     */
+    private String createTimeStr;
+
+    public String getCreateTimeStr() {
+        if (createTime != null) {
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return sf.format(createTime);
+        }
+        return createTimeStr;
+    }
+
+    public OrderInfoDTO setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
+        return this;
+    }
 
     public Long getId() {
         return id;

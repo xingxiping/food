@@ -22,7 +22,7 @@
             <a href="index">首页</a>
         </p>
         <div class="sn-quick-menu">
-            <div class="login"><a href="login">登录</a></div>
+            <div class="login"><a onclick="javascript:loginOrLogout()" id="loginOrLogout">登录</a></div>
             <div class="sp-cart"><a href="shopcart">购物车</a><span>&nbsp;&nbsp;&nbsp;</span></div>
             <div class="sp-cart"><a href="address">我的</a></div>
         </div>
@@ -39,14 +39,7 @@
                 </a>
             </h1>
             <div class="mallSearch">
-                <form action="" class="layui-form" novalidate>
-                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
-                           class="layui-input" placeholder="请输入需要的美食">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">
-                        <i class="layui-icon layui-icon-search"></i>
-                    </button>
-                    <input type="hidden" name="" value="">
-                </form>
+
             </div>
         </div>
     </div>
@@ -57,7 +50,7 @@
 
     <!--今日推荐-->
     <div class="floors" th:if="${not#lists.isEmpty(pageInners)}">
-        <div class="sk">
+        <div class="sk" style="padding-top: 0px">
             <div class="sk_inner w1200">
                 <div class="sk_hd">
                     <a href="javascript:;">
@@ -174,6 +167,7 @@
 
 
     });
+
     layui.define(['layer'], function (exports) {
         var layer = layui.layer;
         //类型筛选
@@ -232,6 +226,24 @@
                 }
             }
         )
+    }
+
+    var storage = window.sessionStorage;
+    var userId = storage.userId;
+    if(userId){ //用户登陆
+        $("#loginOrLogout").html("退出");
+    }
+
+
+    function loginOrLogout() {
+        var storage = window.sessionStorage;
+        var userId = storage.userId;
+
+        if (userId) { //用户登录，跳转登陆页面
+            var sessionStorage = window.sessionStorage;
+            sessionStorage.removeItem("userId");
+        }
+        window.location.href = "../login";
     }
 
 

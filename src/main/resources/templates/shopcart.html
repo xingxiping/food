@@ -182,6 +182,10 @@
         window.location.href = "../login";
     }
 
+    if(userId){ //用户登陆
+        $("#loginOrLogout").html("退出");
+    }
+
     var products = "[";
     //加载购物车数据
     $.ajax(
@@ -298,6 +302,18 @@
                 break;
             }
         }
+    }
+
+
+    function loginOrLogout() {
+        var storage = window.sessionStorage;
+        var userId = storage.userId;
+
+        if (userId) { //用户登录，跳转登陆页面
+            var sessionStorage = window.sessionStorage;
+            sessionStorage.removeItem("userId");
+        }
+        window.location.href = "../login";
     }
 
 </script>

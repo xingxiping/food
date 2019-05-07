@@ -23,6 +23,6 @@ public interface FoodOrderDao extends BaseMapper<FoodOrder> {
      * @param userId
      * @return
      */
-    @Select("select * from food_order where user_id = #{userId}")
+    @Select("select * from food_order where user_id = #{userId} order by create_time desc")
     List<FoodOrder> queryByUserId(@Param("userId") Long userId);
 }

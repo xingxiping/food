@@ -65,7 +65,7 @@
             <a href="index">首页</a>
         </p>
         <div class="sn-quick-menu">
-            <div class="login"><a href="login">登录</a></div>
+            <div class="login"><a onclick="javascript:loginOrLogout()" id="loginOrLogout">登录</a></div>
             <div class="sp-cart"><a href="shopcart">购物车</a><span>&nbsp;&nbsp;&nbsp;</span></div>
             <div class="sp-cart"><a href="address">我的</a></div>
         </div>
@@ -160,6 +160,23 @@
         window.location.href = "../login";
     };
 
+    if(userId){ //用户登陆
+        $("#loginOrLogout").html("退出");
+    }
+
+
+
+    function loginOrLogout() {
+        var storage = window.sessionStorage;
+        var userId = storage.userId;
+
+        if (userId) { //用户登录，跳转登陆页面
+            var sessionStorage = window.sessionStorage;
+            sessionStorage.removeItem("userId");
+        }
+        window.location.href = "../login";
+    }
+
     $(function(){
         //加载购物车数据
         $.ajax(
@@ -181,7 +198,7 @@
                                 "<td>"+ item.name+"</td>\n" +
                                 "<td>"+item.phone+"</td>\n" +
                                 "<td>"+item.address+"</td>\n" +
-                                "<td>"+item.createTime+"</td>\n" +
+                                "<td>"+item.createTimeStr+"</td>\n" +
                                 "<td>"+item.totleAmount+"</td>\n" +
                                 "</tr>"
 
