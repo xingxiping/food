@@ -116,8 +116,8 @@
                 <h5 class="text-center p_bottom_10">&nbsp;&nbsp;您好！</h5>
                 <ul class="list-group">
                     <li class="list-group-item "><a href="address">我的地址</a></li>
-                    <li><a class="list-group-item active" href="orderInformation">我的订单</a></li>
-                    <li><a class="list-group-item" href="orderComments">我的评论</a></li>
+                    <li><a class="list-group-item " href="orderInformation">我的订单</a></li>
+                    <li><a class="list-group-item active" href="orderComments">我的评论</a></li>
                 </ul>
             </div>
             <div class="col-md-10 b-left" >
@@ -127,12 +127,8 @@
                     <thead>
                     <tr>
                         <th>订单号</th>
-                        <th>姓名</th>
-                        <th>手机</th>
-                        <th>详细地址</th>
-                        <th>订单时间</th>
-                        <th>订单金额</th>
-                        <th>操作</th>
+                        <th>评论内容</th>
+                        <th>评论时间</th>
                     </tr>
                     </thead>
                     <tbody class="tbody-class">
@@ -145,39 +141,7 @@
 
     </div>
 </div>
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="top: 35%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel" style="position: absolute">编辑评论</h4>
-            </div>
-            <div class="modal-body">
-                <!-- <form action="../shipAddress/create" method="post" class="form-horizontal fv-form fv-form-bootstrap" id="form" novalidate="novalidate">-->
-                <button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
 
-                <div class="row form-group has-feedback">
-                    <label class="col-sm-4 control-label" style="text-align: right">评论：</label>
-                    <div class="col-sm-6">
-                        <textarea id="comments" name="comments" maxlength="900" value="" class="form-control"
-                                  placeholder="请输入评论信息" data-fv-field="address"></textarea></div>
-                </div>
-
-                <div class="row form-group">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-6">
-                        <input name="orderId" id="orderId" value="" type="hidden">
-                        <input type="button" value="保存" id="saveModel" class="btn btn-primary btn-block"
-                               onclick="javascript:saveComments()">
-                    </div>
-                </div>
-                <!--</form>-->
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 
 
 <script type="text/javascript">
@@ -209,7 +173,7 @@
         //加载购物车数据
         $.ajax(
             {
-                url: "../orderList",
+                url: "../orderCommentsQuery",
                 data: '{"userId":' + userId + '}',
                 contentType: "application/json",
                 dataType: "json",
@@ -218,18 +182,13 @@
                 success: function (data) {
 
                     var result = data.result;
-                    console.log(result);
                     var html = "";
                     if(result != null && result.length>0){
                         $.each(result, function (index, item) {
                             var ul = "<tr>\n" +
-                                "<td>"+ item.id+"</td>\n" +
-                                "<td>"+ item.name+"</td>\n" +
-                                "<td>"+item.phone+"</td>\n" +
-                                "<td>"+item.address+"</td>\n" +
+                                "<td>"+ item.orderId+"</td>\n" +
+                                "<td>"+item.comments+"</td>\n" +
                                 "<td>"+item.createTimeStr+"</td>\n" +
-                                "<td>"+item.totleAmount+"</td>\n" +
-                                "<td><a class=\"btn btn-primary btn-sm\"  onclick=\"javascript:comments(" + item.id + ")\" data-toggle=\"modal\" data-target=\"#myModal\">评论</a></td></td>\n" +
                                 "</tr>"
 
                             // console.log(ul);
@@ -243,43 +202,6 @@
         )
 
     })
-    function comments(id){
-        $("#orderId").val(id);
-    }
-    function saveComments() {
-        var comments = $("#comments").val();
-        var orderId = $("#orderId").val();
-
-        if (comments == "") {
-            return false;
-        }
-        if(comments != null && comments.length>900){
-         //   alert("p");
-
-        }
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "../orderCommentsSave",
-            data: '{"userId": ' + userId + ', "comments": "' + comments + '", "orderId": ' + orderId + '}',
-            dataType: "json",
-            success: function (res) {
-                console.log(res);
-                var message = res.message;
-                $('#myModal').modal('hide');
-                layui.define(['layer'], function (exports) {
-                        var layer = layui.layer;
-                        layer.msg(message);
-                    });
-
-
-
-
-            }
-        })
-
-    }
 
 </script>
 

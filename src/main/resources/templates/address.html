@@ -79,20 +79,13 @@
 <div class="header">
     <div class="headerLayout w1200">
         <div class="headerCon">
-            <h1 class="mallLogo" style="margin-left: -60px;">
+            <h1 class="mallLogo" style="margin-left: -60px;margin-top: 17px;">
                 <a href="index" title="美食点餐">
                     <img th:src="@{/img/logo.png}"/>
                 </a>
             </h1>
             <div class="mallSearch">
-                <!--<form action="" class="layui-form" novalidate>
-                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
-                           class="layui-input" placeholder="请输入需要的美食">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">
-                        <i class="layui-icon layui-icon-search"></i>
-                    </button>
-                    <input type="hidden" name="" value="">
-                </form>-->
+
             </div>
         </div>
     </div>
@@ -128,6 +121,7 @@
                 <ul class="list-group">
                     <li class="list-group-item active"><a href="address">我的地址</a></li>
                     <li><a class="list-group-item" href="orderInformation">我的订单</a></li>
+                    <li><a class="list-group-item" href="orderComments">我的评论</a></li>
                 </ul>
             </div>
             <div class="col-md-10 b-left">
@@ -165,7 +159,6 @@
                 <h4 class="modal-title" id="myModalLabel" style="position: absolute">新增地址</h4>
             </div>
             <div class="modal-body">
-                <!-- <form action="../shipAddress/create" method="post" class="form-horizontal fv-form fv-form-bootstrap" id="form" novalidate="novalidate">-->
                 <button type="submit" class="fv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
                 <input type="hidden" name="cSRFToken" value="0ad380b0-4179-440f-95de-53c8552d8423">
                 <div class="form-group">
@@ -204,7 +197,6 @@
                                onclick="create()">
                     </div>
                 </div>
-                <!--</form>-->
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

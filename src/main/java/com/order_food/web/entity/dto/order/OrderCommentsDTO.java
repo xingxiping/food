@@ -10,6 +10,8 @@ public class OrderCommentsDTO {
 
     private Long id;
 
+    private Long orderId;
+
     private String comments;
 
     private Date createTime;
@@ -54,6 +56,15 @@ public class OrderCommentsDTO {
 
     public OrderCommentsDTO setCreateTime(Date createTime) {
         this.createTime = createTime;
+        return this;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public OrderCommentsDTO setOrderId(Long orderId) {
+        this.orderId = orderId;
         return this;
     }
 }
