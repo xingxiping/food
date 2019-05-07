@@ -29,7 +29,6 @@ import java.util.List;
  * Created by xingxiping on 2019/5/2.
  */
 @Controller
-
 public class FoodOrderController {
 
     @Autowired
