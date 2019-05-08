@@ -38,7 +38,10 @@
                     <img th:src="@{/img/logo.png}"/>
                 </a>
             </h1>
-            <div class="mallSearch">
+            <div class="mallSearch" style="padding-top: 14px; width: 80%;">
+                <marquee width=100%; scrollamount=10 class="marquee-class">
+                    　
+                </marquee>
 
             </div>
         </div>
@@ -50,14 +53,14 @@
 
     <!--今日推荐-->
     <div class="floors" th:if="${not#lists.isEmpty(pageInners)}">
-        <div class="sk" style="padding-top: 0px">
+        <div class="sk" style="padding-top: 23px">
             <div class="sk_inner w1200">
-                <div class="sk_hd">
+                <div class="sk_hd" style="    margin-top: 23px;">
                     <a href="javascript:;">
                         <img th:src="@{/img/s_img1.jpg}"/>
                     </a>
                 </div>
-                <div class="sk_bd">
+                <div class="sk_bd" style="    margin-top: -14px;">
                     <div class="layui-carousel" id="test1">
                         <div carousel-item>
                             <div class="item-box" th:each="inners,userStat: ${pageInners}">
@@ -148,23 +151,6 @@
             , indicator: 'none'
         }
         carousel.render(option);
-        // 模版引擎导入
-        // var ins = carousel.render(option);
-        // var html = demo.innerHTML;
-        // var listCont = document.getElementById('list-cont');
-        // // console.log(layui.router("#/about.html"))
-        //  mm.request({
-        //    url: '../json/index.json',
-        //    success : function(res){
-        //      console.log(res)
-        //      listCont.innerHTML = mm.renderHtml(html,res)
-        //      ins.reload(option);
-        //    },
-        //    error: function(res){
-        //      console.log(res);
-        //    }
-        //  })
-
 
     });
 
@@ -246,7 +232,34 @@
         window.location.href = "../login";
     }
 
+    $(function(){
+        //加载购物车数据
+        $.ajax(
+            {
+                url: "../noticeInfoQuery",
+                data: '{"userId":' + userId + '}',
+                contentType: "application/json",
+                dataType: "json",
+                async: false,
+                type: "POST",
+                success: function (data) {
 
+                    var result = data.result;
+                    var html = "";
+                    if(result != null && result.length>0){
+                        $.each(result, function (index, item) {
+                            var ul = "<span style=\"margin-right: 40%;\"><FONT face=楷体_GB2312 color=#f176a8 size=5><STRONG>"+ item.comments +"</STRONG></FONT></span>　\n";
+                            // console.log(ul);
+                            html = html + ul;
+                        });
+                        $(".marquee-class").html(html);
+                    }
+
+                }
+            }
+        )
+
+    })
 </script>
 </body>
 </html>
