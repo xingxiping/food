@@ -100,7 +100,7 @@
             <div class="product-item-box layui-clear" id="product">
                 <div th:each="product,userStat: ${products} " class="list-item">
                     <a href="javascript:;" th:onclick="'javascript:addToShopCart(' + ${product.id} + ')'"><img
-                            th:src="@{${product.productImg}}"/></a>
+                            th:src="@{${product.productImg}}" style=" width: 233px;height: 192px;"/></a>
                     <p><span th:text="${product.productName}"/></p>
                     <div class="price" th:if="${product.recommend} eq '1'">
                         <span>￥<span th:text="${product.disPrice}"/></span>
@@ -153,11 +153,11 @@
         carousel.render(option);
 
     });
-
+    function queryByCode(code) {
     layui.define(['layer'], function (exports) {
         var layer = layui.layer;
         //类型筛选
-        function queryByCode(code) {
+
             $.ajax(
                 {
                     url: "/query/" + code + "/product",
@@ -168,7 +168,7 @@
                         $.each(result, function (index, item) {
                             var div = "<div class=\"list-item\">" +
                                 " <a href=\"javascript:;\" onclick=\"javascript:addToShopCart(" + item.id + ")\">" +
-                                "<img src=\"" + item.productImg + "\"/></a>" + " <div class=\"price\">";
+                                "<img src=\"" + item.productImg + "\"  style=\" width: 233px;height: 192px;\"/></a>" + " <div class=\"price\">";
 
                             if (item.recommend == '1') {
                                 div = div + "<span><span>￥" + item.disPrice + "</span></span><del><span>￥" + item.price + "</span></del>";
@@ -182,13 +182,9 @@
                     }
                 }
             )
-        }
 
-        //跳转到购物车
-        function toShopCart() {
-
-        }
     });
+    }
 
     //添加到购物车
     function addToShopCart(id) {

@@ -124,7 +124,7 @@ layui.define(['layer'], function (exports) {
                             layer.close(index)
                             for (var i = 0; i < uls.length; i++) {
                                 var input = uls[i].getElementsByTagName('input')[0];
-                                var inputId = this.getElementsByClassName('shopCartId')[0];
+                                var inputId = uls[i].getElementsByClassName('shopCartId')[0];
                                 if (input.checked) {
                                     delShopCartInfo(inputId.value);
                                     uls[i].parentNode.removeChild(uls[i]);
